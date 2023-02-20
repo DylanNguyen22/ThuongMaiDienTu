@@ -1,0 +1,126 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    max-width: 100%;
+}
+
+.header_ads img{
+    width: 150%;
+}
+
+.header_ads {
+    display: flex;
+    justify-content: center;
+}
+
+.typeOfProduct {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 10px;
+    font-weight: 600;
+}
+
+.header_functions {
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.sign_in,
+.sign_up { 
+    text-decoration: none;
+}
+
+.sign_in:hover,
+.sign_up:hover {
+    font-weight: 600;
+}
+
+.search_block {
+    display: flex;
+    align-items: center;
+}
+
+.cart_link {
+    text-decoration: none;
+}
+
+.cart_link:hover {
+    font-weight: 600;
+}
+
+.cart_link ion-icon {
+    font-size: 25px;
+}
+
+.page_content {
+    display: flex;
+    justify-content: center;
+    margin: 2.5% 0;
+}
+
+.products {
+    flex-wrap: wrap;
+    width: 82%;
+}
+
+.product {
+    width: 250px;
+    height: 350px;
+    box-shadow: rgba(50, 50, 93, 0.555) 0px 2px 5px -1px, rgba(0, 0, 0, 0.555) 0px 1px 3px -1px;
+    border-radius: 5px;
+}
+
+.product_link {
+    text-decoration: none;
+}
+
+.product_link:hover {
+    box-shadow: rgba(50, 50, 93, 0.808) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.658) 0px 18px 36px -18px inset;
+}
+
+.product_img {
+    width: 100%;
+    height: 70%;
+}
+
+.product_img img {
+    height: auto;
+    width: 100%;
+}
+
+.product_trademark {
+    font-weight: 600;
+    color: rgba(58, 58, 58, 0.548);
+}
+
+.product_name {
+    font-weight: 600;
+    font-size: 15px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.product_price {
+    text-align: end;
+    font-size: 15px;
+    color: red;
+}
+
+.product_name span {
+    display: block;
+  	display: -webkit-box;
+  	height: 16px*1.3*1;
+  	font-size: 16px;
+  	line-height: 1.3;
+  	-webkit-line-clamp: 1;  /* số dòng hiển thị */
+  	-webkit-box-orient: vertical;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	margin-top:10px;
+}
+
+.product_brand span {
+    font-size: 15px;
+    color: rgba(83, 82, 82, 0.849);
+    font-weight: 600;
+}
