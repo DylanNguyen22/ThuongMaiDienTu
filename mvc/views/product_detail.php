@@ -1,52 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/product_detail.css">
-    <?php require("./public/header_link.php") ?>
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+    <style>
+        .product-image {
+            max-width: 500px;
+            display: block;
+            margin: auto;
+        }
 
-    <title>Document</title>
+        .product-details {
+            margin-top: 50px;
+        }
+
+        .product-details h2,
+        .product-details .price {
+            text-align: center;
+        }
+
+        .product-details .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #dc3545;
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+
+        .product-details .description p {
+            text-align: justify;
+        }
+
+        .product-details .description ul {
+            list-style: circle;
+            padding-left: 20px;
+        }
+
+        .product-details .description ul li {
+            margin-bottom: 10px;
+        }
+
+        .product-details .btn-buy {
+            display: block;
+            margin: auto;
+            margin-top: 30px;
+            width: 200px;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #dc3545;
+            border: none;
+        }
+
+        .product-details .btn-buy:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
-<body class="">
-    <div class="header">
-        <div class="header_ads w-100 overflow-hidden">
-            <img src="./public/website_imgs/header_ads.png" alt="">
-        </div>
-        <div class="py-2 d-flex justify-content-center bg-primary">
-            <?php
-                while($typeOfProduct = mysqli_fetch_array($data[1])){
-                    ?>
-                        <a href="" class="typeOfProduct"><?php echo $typeOfProduct['Tenloai'] ?></a>
-                    <?php
-                }
-            ?>
-        </div>
-        <div class="header_functions p-3">
-            <div class="d-flex mx-4 align-items-center justify-content-around">
-                <div class="logo">
-                    <img src="./public/website_imgs/logo.png" alt="">
+
+<body>
+    <div class="back">
+        <button class="btn btn-danger m-0" onclick="window.history.back()">Trở về</button>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Product image -->
+            <div class="col-md-6">
+                <img src="../../public/product_imgs/<?php echo $data["hinhanh"] ?>" alt="">
+            </div>
+            <!-- Product details -->
+            <div class="col-md-6">
+                <div class="product-details">
+                    <h2>
+                        <?php echo $data["tensp"] ?>
+                    </h2>
+                    <div class="price">
+                        <?php echo $data["giaban"] ?> đ
+                    </div>
+                    <div class="description">
+                        <p>
+                            <?php echo $data["chitiet"] ?>
+                        </p>
+                        <ul>
+                            <li> Thương hiệu:
+                                <?php echo $data["TenTH"] ?>
+                            </li>
+                            <li> Số lượng:
+                                <?php echo $data["soluong"] ?>
+                            </li>
+                            <li> Tình trạng:
+                                <?php if ($data["trangthaisp"] == 1) {
+                                    echo "Mới";
+                                } else {
+                                    echo "Cũ";
+                                } ?>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-buy">Mua ngay</button>
                 </div>
-                <div class="search_block w-50 d-flex input-group">
-                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-primary" type="button" id="button-addon2"><ion-icon name="search-outline"></ion-icon></button>
-                </div>
-                <div class="user d-flex">
-                    <a class="sign_in" href="">Đăng nhập</a>
-                    <span>/</span>
-                    <a class="sign_up" href="">Đăng ký</a>
-                </div>
-                <div class="cart">
-                    <a class="cart_link" href=""><ion-icon name="cart-outline"></ion-icon> Giỏ hàng của bạn</a>
-                </div> 
             </div>
         </div>
+    </div>
 
-                <!-- ================== -->
-    </div>
-    <div class="footer bg-dark py-2 d-flex justify-content-center">
-        <span style="color: #fff">Copyright © THUONG MAI DIEN TU</span>
-    </div>
 </body>
+
 </html>

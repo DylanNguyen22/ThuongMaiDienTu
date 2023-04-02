@@ -16,6 +16,12 @@ class ProductModel extends DB{
         
     }
 
+    public function getProductDetail($productId) {
+        $qr = "SELECT * FROM sanpham, danhmucsanpham, thuonghieu WHERE masp = $productId and sanpham.maloai = danhmucsanpham.Maloai and sanpham.math = thuonghieu.MaTH";
+        // return mysqli_query($this->con, $qr);
+        return (mysqli_fetch_array(mysqli_query($this->con, $qr)));
+    }
+
     
 }
 ?>

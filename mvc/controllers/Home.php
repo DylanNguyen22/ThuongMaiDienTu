@@ -19,15 +19,15 @@ class Home extends Controller{
     }
 
     function productDetail() {
-        $allProduct = $this->model("ProductModel");
-        $product = $allProduct->getAllProduct();
-        $typeOfProduct = $allProduct->getAllTypeOfProduct();
+        $arrUrl = explode('/', $_GET['url']);
+        $arrLen = count($arrUrl);
+        $productId = $arrUrl[$arrLen-1];
 
-        $data = [
-            $product,
-            $typeOfProduct
-        ];
-        $this->view("product_detail", $data);
+        $productDetail = $this->model("ProductModel");
+        $productInfo = $productDetail->getProductDetail($productId);
+
+        // $this->view("product_detail", $data);
+        $this->view("product_detail", $productInfo);
     }
 }
 ?>

@@ -47,7 +47,7 @@
                     while($productData = mysqli_fetch_array($data[0])){
                     ?>
 
-                    <a href="" class="product_link m-2">
+                    <a href="/thuongmaidientu/home/productdetail/<?php echo $productData['masp'] ?>" class="product_link m-2">
                         <div class="product p-2">
                             <div class="product_img">
                                 <img class="w-100 h-auto" src="./public/product_imgs/<?php echo $productData["hinhanh"] ?>" alt="">
