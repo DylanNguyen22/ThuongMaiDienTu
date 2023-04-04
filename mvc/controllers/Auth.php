@@ -8,6 +8,29 @@ class Auth extends Controller
         $this->view("sign_in");
     }
 
+    function sign_in_handle() {
+        $str = '25f9e794323b453885f5181f1b624d0b';
+        $email = $_POST['email'];
+
+        $auth = $this->model("AuthModel");
+        $result = $auth->handleSignIn($email);
+
+        if($result[0] == 'yes'){
+            $pass = md5($_POST['pass']);
+            $str = $result[1]['matkhau'];
+
+            if($pass == $result[1]['matkhau']){
+                $_SESSION['user'] = $result[1]['tentk'];
+                var_dump($_SESSION);
+                header('location: ../');
+            }else{
+                echo "sai mk";
+            }
+        }else{
+            echo 'tk khong ton tai';
+        }
+    }
+
     function sign_up()
     {
         $this->view("sign_up");
@@ -22,9 +45,6 @@ class Auth extends Controller
      */
     public function sign_up_handle()
     {
-        // echo "<pre>";
-        // print_r($_POST);
-
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
         $pass = $_POST['pass'];
@@ -34,16 +54,27 @@ class Auth extends Controller
         $x = count($name);
         $l_name = $name[$x-1];
         array_pop($name);
-        $a = implode(" ", $name);
-        echo $a;
-        die();
-
+        $f_name = implode(" ", $name);
 
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             if (strlen($pass) >= 8 || strlen($pass) <= 16) {
                 if (strlen($repass) >= 8 || strlen($repass) <= 16) {
                     if ($pass === $repass) {
-                        mysqli_query($this->con, "INSERT INTO `taikhoan`(`matk`, `tentk`, `matkhau`, `ho`, `ten`, `sodt`, `gioitinh`, `diachi`, `loaitaikhoan`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]')");
+
+                        $data = [
+                            $email,
+                            md5($pass),
+                            $f_name,
+                            $l_name
+                        ];
+
+                        $auth = $this->model("AuthModel");
+                        $result = $auth->handleSignUp($data);
+                        if($result == "success"){
+                            echo $result;
+                        }else{
+                            echo $result;
+                        }
                     } else {
                         $msg['repass'] = "Mật khẩu xác nhận không khớp";
                         $this->view("sign_up", $msg);
@@ -60,6 +91,11 @@ class Auth extends Controller
             $msg['email'] = "Email không đúng định dạng";
             $this->view("sign_up", $msg);
         }
+    }
+
+    public function sign_out() {
+        unset($_SESSION['user']);
+        header('Location: /thuongmaidientu');
     }
 }
 ?>

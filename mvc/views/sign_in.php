@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Đăng nhập</title>
@@ -14,18 +15,20 @@
 </style>
 
 <body>
+  <button class="btn btn-danger" onclick="window.history.back()">Trở lại</button>
+
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-sm-6">
         <h1 class="mb-4">Đăng nhập</h1>
-        <form>
+        <form method="post" action="../auth/sign_in_handle">
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email">
+            <input type="email" class="form-control" id="email" name="email">
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Mật khẩu</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" name="pass">
           </div>
           <button type="submit" class="btn btn-primary">Đăng nhập</button>
         </form>
@@ -34,4 +37,5 @@
     </div>
   </div>
 </body>
-</html>     
+
+</html>

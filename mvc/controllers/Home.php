@@ -6,13 +6,16 @@ class Home extends Controller{
 
     // Must have SayHi()
     function ShowAllProduct(){
-        $allProduct = $this->model("ProductModel");
-        $product = $allProduct->getAllProduct();
-        $typeOfProduct = $allProduct->getAllTypeOfProduct();
+        $home = $this->model("ProductModel");
+        $product = $home->getAllProduct();
+        $typeOfProduct = $home->getAllTypeOfProduct();
+        $auth = $this->model("AuthModel");
+        $userInfo = $auth->getUserInfo();
 
         $data = [
             $product,
-            $typeOfProduct
+            $typeOfProduct,
+            $userInfo
         ];
 
         $this->view("home", $data);

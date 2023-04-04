@@ -15,6 +15,9 @@
 </style>
 
 <body>
+  <button class="btn btn-danger" onclick="window.history.back()">Trở lại</button>
+
+
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-sm-6">
