@@ -106,7 +106,10 @@
                             </li>
                         </ul>
                     </div>
-                    <button class="btn btn-buy">Mua ngay</button>
+                    <div class="d-flex align-items-center justify-content-between w-50">
+                        <a href="" class="btn btn-danger">Mua ngay</a>
+                        <a href="../../cart/addtocart/<?php echo $data['masp'] ?>" class="btn btn-success">Thêm vào giỏ hàng</a>
+                    </div>
                 </div>
             </div>
         </div>

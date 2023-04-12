@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,9 @@
   <!-- Nạp các tệp CSS của Bootstrap 5 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
 </head>
+
 <body>
-  <button onclick="window.history.back()" class="btn btn-danger">Trở lại</button>
+  <a href="/thuongmaidientu" class="btn btn-danger">Trở lại</a>
 
   <div class="container">
     <!-- Thanh tiêu đề -->
@@ -36,14 +38,37 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">"Hình ảnh của sản phẩm</th>
-                  <td>Áo phông nam</td>
-                  <td>200.000 đ</td>
-                  <td><input style="width: 45px" value="2" type="number"></td>
-                  <td>400.000 đ</td>
-                  <td><a href="#" class="btn btn-sm btn-danger">Xóa</a></td>
-                </tr>
+                <?php
+                if (isset($_SESSION['cart'])) {
+                  foreach ($_SESSION['cart'] as $item) {
+                    ?>
+                    <tr>
+                      <th class="w-25" scope="row"><img class="w-25" src="../public/product_imgs/<?php echo $item[0][1] ?>"
+                          alt=""></th>
+                      <td>
+                        <?php echo $item[0][2] ?>
+                      </td>
+                      <td>
+                        <?php echo $item[0][3] ?> đ
+                      </td>
+                      <td><input style="width: 45px" value="<?php echo $item[0][4] ?>" type="number"></td>
+                      <td>
+                        <?php echo $item[0][4]*$item[0][3] ?> đ
+                      </td>
+                      <td><a href="../cart/deleteCartItem/<?php echo $item[0][0] ?>" class="btn btn-sm btn-danger">Xóa</a>
+                      </td>
+                      <td>
+                        <form method="post" action="../vnpay_php/vnpay_create_payment.php">
+                          <input type="hidden" name="idP" id="" value="<?php echo $item[0][0] ?>">
+                          <input type="hidden" name="total" id="" value="<?php echo $item[0][4]*$item[0][3] ?>">
+                          <button type="submit" class="btn btn-sm btn-primary">Đặt hàng</button>
+                        </form>
+                      </td>
+                    </tr>
+                    <?php
+                  }
+                }
+                ?>
               </tbody>
             </table>
           </div>
@@ -56,9 +81,21 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Tổng tiền</h5>
-            <p class="card-text">Tổng tiền: 400.000 đ</p>
-            <a href="#" class="btn btn-primary">Thanh toán</a>
-          </div>
+            <p class="card-text">Tổng tiền:
+              <?php
+              if ($data != null) {
+                echo $data . "đ";
+              } else {
+                echo "0 đ";
+              }
+
+              ?>
+            </p>
+            <form method="post" action="../vnpay_php/vnpay_create_payment.php">
+              <input type="hidden" name="payAll">
+              <input type="hidden" name="total" id="" value="<?php echo $data ?>">
+              <button class="btn btn-primary">Thanh toán</button>
+            </form>
         </div>
       </div>
     </div>
@@ -66,4 +103,5 @@
   <!-- Nạp các tệp JavaScript của Bootstrap 5 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -1,5 +1,16 @@
 <?php
+session_start();
+if (isset($_POST['idP'])){
+    $_SESSION['idP'] = $_POST['idP'];
+}
+if (isset($_POST['payAll'])){
+    $_SESSION['payAll'] = 'payAll';
+}
 
+// echo "<pre>";
+// print_r($_SESSION);
+
+// die();
 error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
@@ -11,9 +22,9 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 require_once("./config.php");
 
 $vnp_TxnRef = rand(1,10000); //Mã giao dịch thanh toán tham chiếu của merchant
-$vnp_Amount = $_POST['amount']; // Số tiền thanh toán
-$vnp_Locale = $_POST['language']; //Ngôn ngữ chuyển hướng thanh toán
-$vnp_BankCode = $_POST['bankCode']; //Mã phương thức thanh toán
+$vnp_Amount = $_POST['total']; // Số tiền thanh toán
+$vnp_Locale = 'vn'; //Ngôn ngữ chuyển hướng thanh toán
+$vnp_BankCode = 'VNBANK'; //Mã phương thức thanh toán
 $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
 
 $inputData = array(
@@ -55,6 +66,7 @@ if (isset($vnp_HashSecret)) {
     $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
     $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
 }
+
 header('Location: ' . $vnp_Url);
 die();
 

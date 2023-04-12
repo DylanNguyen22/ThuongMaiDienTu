@@ -40,7 +40,7 @@
                             name="search-outline"></ion-icon></button>
                 </div>
                 <div class="cart">
-                    <a class="cart_link" href=""><ion-icon name="cart-outline"></ion-icon> Giỏ hàng của bạn</a>
+                    <a class="cart_link" href="cart/showcart"><ion-icon name="cart-outline"></ion-icon> Giỏ hàng của bạn</a>
                 </div>
                 <?php
                 if (isset($_SESSION['user'])) {

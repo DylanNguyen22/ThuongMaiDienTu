@@ -16,6 +16,7 @@
     </head>
     <body>
         <?php
+        session_start();
         require_once("./config.php");
         $vnp_SecureHash = $_GET['vnp_SecureHash'];
         $inputData = array();
@@ -83,6 +84,9 @@
                         if ($secureHash == $vnp_SecureHash) {
                             if ($_GET['vnp_ResponseCode'] == '00') {
                                 echo "<span style='color:blue'>GD Thanh cong</span>";
+                                if (isset($_SESSION['idP'])){
+                                    header("location: '../../../cart/dropItemPaid");
+                                }
                             } else {
                                 echo "<span style='color:red'>GD Khong thanh cong</span>";
                             }
