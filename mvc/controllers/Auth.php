@@ -20,7 +20,7 @@ class Auth extends Controller
             $str = $result[1]['matkhau'];
 
             if($pass == $result[1]['matkhau']){
-                $_SESSION['user'] = $result[1]['tentk'];
+                $_SESSION['user'] = $result[1]['matk'];
                 var_dump($_SESSION);
                 header('location: ../');
             }else{

@@ -87,9 +87,12 @@
                                 if (isset($_SESSION['idP'])){
                                     header("location: '../../../cart/dropItemPaid");
                                 }
-                            } else {
+                                if (isset($_SESSION['payAll'])){
+                                    header("location: '../../../cart/dropAllItemPaid");
+                            } 
+                            else {
                                 echo "<span style='color:red'>GD Khong thanh cong</span>";
-                            }
+                            }}
                         } else {
                             echo "<span style='color:red'>Chu ky khong hop le</span>";
                         }
