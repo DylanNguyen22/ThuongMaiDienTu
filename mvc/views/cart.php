@@ -115,16 +115,11 @@
               <?php
               if ($data != null && $total == 0) {
                 echo $data . "đ";
-              } 
-              else if(isset($total) && $total != null){
-                echo $total;
-              }
-              else {
+              } else {
                 echo "0 đ";
               }
 
               ?>
-            </p>
             <form method="post" action="../vnpay_php/vnpay_create_payment.php">
               <input type="hidden" name="payAll">
               <input type="hidden" name="total" id="" value="<?php echo $data ?>">

@@ -29,8 +29,7 @@ class CartModel extends DB
     public function addToCart($data)
     {
         if (isset($_SESSION["user"])) {
-            echo "da dang nhap";
-            
+            echo "da dang nhap"; // kiểm tra xem người dùng có lưu sản phẩm nào trong giỏ hàng (session) chưa, nếu có lưu lại vào csdl trước r mới lưu sản phẩm cần thêm hiện tại vào csdl sau
         } else {
             $result = mysqli_fetch_array(mysqli_query($this->con, "SELECT * FROM sanpham WHERE masp = '$data'"));
             // echo "<pre>";
