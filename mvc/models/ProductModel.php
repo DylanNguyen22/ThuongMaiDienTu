@@ -22,6 +22,9 @@ class ProductModel extends DB{
         return (mysqli_fetch_array(mysqli_query($this->con, $qr)));
     }
 
-    
+    function searchProduct($keyWord){
+        $query ="SELECT * FROM sanpham where MATCH (tensp) AGAINST ('$keyWord')";
+        return mysqli_fetch_all(mysqli_query($this->con, $query));
+    } 
 }
 ?>

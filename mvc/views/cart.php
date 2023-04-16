@@ -42,17 +42,22 @@
                 $total = 0;
                 if (isset($_SESSION['cart'])) {
                   foreach ($_SESSION['cart'] as $item) {
-                    ?>
+
+                ?>
                     <tr>
-                      <th class="w-25" scope="row"><img class="w-25" src="../public/product_imgs/<?php echo $item[0][1] ?>"
-                          alt=""></th>
+                      <th class="w-25" scope="row"><img class="w-25" src="../public/product_imgs/<?php echo $item[0][1] ?>" alt=""></th>
                       <td>
                         <?php echo $item[0][2] ?>
                       </td>
                       <td>
                         <?php echo $item[0][3] ?> đ
                       </td>
-                      <td><input style="width: 45px" value="<?php echo $item[0][4] ?>" type="number"></td>
+                      <td>
+                        <button class="px-2" id="increase" onclick="var quantity = document.getElementById('quantity <?php echo $item[0][0] ?>').value;document.getElementById('quantity').value = ++quantity; console.log()">+</button>
+                        <input style="width: 45px" min="1" id="quantity <?php echo $item[0][0] ?>" value="<?php echo $item[0][4] ?>" type="number">
+                        <button class="px-2" id="decrease" onclick="decrease(<?php echo $item[0][0] ?>)">-</button>
+                      </td>
+
                       <td>
                         <?php echo $item[0][4] * $item[0][3] ?> đ
                       </td>
@@ -62,18 +67,21 @@
                         <form method="post" action="../vnpay_php/vnpay_create_payment.php">
                           <input type="hidden" name="idP" id="" value="<?php echo $item[0][0] ?>">
                           <input type="hidden" name="total" id="" value="<?php echo $item[0][4] * $item[0][3] ?>">
+                          <input type="hidden" name="totalnew" id="" value="<?php echo $item[0][4] * $item[0][5] ?>">
+
+
+
                           <button type="submit" class="btn btn-sm btn-primary">Đặt hàng</button>
                         </form>
                       </td>
                     </tr>
-                    <?php
+                  <?php
                   }
                 } else if (isset($_SESSION['user'])) {
-                    while($result = mysqli_fetch_array($data)){
-                    ?>
-                      <tr>
-                      <th class="w-25" scope="row"><img class="w-25" src="../public/product_imgs/<?php echo $result[2] ?>"
-                          alt=""></th>
+                  while ($result = mysqli_fetch_array($data)) {
+                  ?>
+                    <tr>
+                      <th class="w-25" scope="row"><img class="w-25" src="../public/product_imgs/<?php echo $result[2] ?>" alt=""></th>
                       <td>
                         <?php echo $result[3] ?>
                       </td>
@@ -82,55 +90,73 @@
                       </td>
                       <td><input style="width: 45px" value="<?php echo $result[5] ?>" type="number"></td>
                       <td>
-                        <?php echo $result[4]*$result[5] ?> đ
+                        <?php echo $result[4] * $result[5] ?> đ
                       </td>
                       <td><a href="../cart/deleteCartItem/<?php echo $result ?>" class="btn btn-sm btn-danger">Xóa</a>
                       </td>
                       <td>
                         <form method="post" action="../vnpay_php/vnpay_create_payment.php">
                           <input type="hidden" name="idP" id="" value="<?php echo $result ?>">
-                          <input type="hidden" name="total" id="" value="<?php echo $result[4] * $result[5 ] ?>">
+                          <input type="hidden" name="total" id="" value="<?php echo $result[4] * $result[5] ?>">
                           <button type="submit" class="btn btn-sm btn-primary">Đặt hàng</button>
-                        </form>
-                      </td>
-                    </tr>
-                    <?php
-                    $total += $result[4]*$result[5];
+
+          </div>
+          </form>
+          </td>
+          </tr>
+      <?php
+                    $total += $result[4] * $result[5];
                   }
                 }
-                ?>
-              </tbody>
-            </table>
-          </div>
+      ?>
+      </tbody>
+      </table>
         </div>
       </div>
     </div>
-    <!-- Thành tiền -->
-    <div class="row mt-3">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Tổng tiền</h5>
-            <p class="card-text">Tổng tiền:
-              <?php
-              if ($data != null && $total == 0) {
-                echo $data . "đ";
-              } else {
-                echo "0 đ";
-              }
+  </div>
+  <!-- Thành tiền -->
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Tổng tiền</h5>
+          <p class="card-text">Tổng tiền:
+            <?php
+            if ($data != null && $total == 0) {
+              echo $data . "đ";
+            } else {
+              echo "0 đ";
+            }
 
-              ?>
-            <form method="post" action="../vnpay_php/vnpay_create_payment.php">
-              <input type="hidden" name="payAll">
-              <input type="hidden" name="total" id="" value="<?php echo $data ?>">
-              <button class="btn btn-primary">Thanh toán</button>
-            </form>
-          </div>
+            ?>
+          <form method="post" action="../vnpay_php/vnpay_create_payment.php">
+            <input type="hidden" name="payAll">
+            <input type="hidden" name="total" id="" value="<?php echo $data ?>">
+            <button class="btn btn-primary">Thanh toán</button>
+          </form>
         </div>
       </div>
     </div>
-    <!-- Nạp các tệp JavaScript của Bootstrap 5 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+  <!-- Nạp các tệp JavaScript của Bootstrap 5 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+  <script>
+    function increase(id) {
+      var quantity = document.getElementById("quantity").value;
+      document.getElementById("quantity").value = ++quantity;
+      console.log(id)
+    }
+
+    function decrease() {
+      var quantity = document.getElementById("quantity").value;
+      if (quantity >= 2) {
+        document.getElementById("quantity").value = --quantity;
+      }
+    }
+  </script>
 </body>
 
 </html>

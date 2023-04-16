@@ -32,5 +32,24 @@ class Home extends Controller{
         // $this->view("product_detail", $data);
         $this->view("product_detail", $productInfo);
     }
+
+    function SearchProduct() {
+        $arrUrl = explode('/', $_GET['url']);
+        $arrLen = count($arrUrl);
+        $productId = $arrUrl[$arrLen-1];
+
+        // $productDetail = $this->model("ProductModel");
+        $productModel = $this->model("ProductModel");
+        if(isset($_POST["sbm"])){
+            $keyWord = $_POST['keyWord'];
+            $kq = $productModel->searchProduct($keyWord);
+            echo "<pre>";
+            print_r($kq);
+        }
+        $this->view("search",[$kq]);
+    }
+
+
+    
 }
 ?>

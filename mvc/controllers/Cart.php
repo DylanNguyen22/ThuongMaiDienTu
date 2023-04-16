@@ -7,7 +7,7 @@ class Cart extends Controller
 
         if (isset($_SESSION['cart']) && !isset($_SESSION['user'])) {
             foreach ($_SESSION['cart'] as $item) {
-                $total += $item[0][5] * $item[0][4];
+                $total += $item[0][3] * $item[0][4];
             }
             $this->view("cart", $total);
         }
@@ -73,8 +73,5 @@ class Cart extends Controller
         </script>
         <?php
     }
-
-
-    
 }
 ?>
