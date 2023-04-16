@@ -17,6 +17,10 @@
             margin: auto;
         }
 
+        img{
+            width: 90%;
+        }
+
         .product-details {
             margin-top: 50px;
         }
@@ -71,14 +75,14 @@
         <button class="btn btn-danger m-0" onclick="window.history.back()">Trở về</button>
     </div>
 
-    <div class="container mt-4">
+    <div class="container">
         <div class="row">
             <!-- Product image -->
-            <div class="col-md-6">
+            <div class="col-md-6 d-flex align-items-center">
                 <img src="../../public/product_imgs/<?php echo $data["hinhanh"] ?>" alt="">
             </div>
             <!-- Product details -->
-            <div class="col-md-6">
+            <div class="col-md-6 mb-5">
                 <div class="product-details">
                     <h2>
                         <?php echo $data["tensp"] ?>

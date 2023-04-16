@@ -21,7 +21,7 @@ class CartModel extends DB
     {
         if (isset($_SESSION['user'])) {
             $matk = $_SESSION['user'];
-            $result = mysqli_query($this->con, "SELECT * FROM giohang WHERE MaTK = 60");
+            $result = mysqli_query($this->con, "SELECT * FROM giohang WHERE MaTK = $matk");
             return $result;
         }
     }
@@ -29,7 +29,24 @@ class CartModel extends DB
     public function addToCart($data)
     {
         if (isset($_SESSION["user"])) {
-            echo "da dang nhap"; // kiểm tra xem người dùng có lưu sản phẩm nào trong giỏ hàng (session) chưa, nếu có lưu lại vào csdl trước r mới lưu sản phẩm cần thêm hiện tại vào csdl sau
+            $matk = $_SESSION['user'];
+
+            $productInfo = mysqli_fetch_array(mysqli_query($this->con, "SELECT * FROM sanpham WHERE masp = $data"));
+
+            $hinhanh = $productInfo[4];
+            $tensp = $productInfo[1];
+            $dongia = $productInfo[2];
+            $soluong = "1";
+            $thanhtien = $dongia;
+
+            $check = mysqli_fetch_array(mysqli_query($this->con, "SELECT * FROM giohang WHERE masp = $data AND MaTK = $matk"));
+            $soluongmoi = $check[5] + 1;
+            if ($check) {
+                mysqli_query($this->con, "UPDATE `giohang` SET `SoLuong`='$soluongmoi'WHERE masp = $data AND MaTK=$matk");
+            } else {
+                mysqli_query($this->con, "INSERT INTO `giohang`(`MaSP`, `hinhanh`, `TenSP`, `DonGia`, `SoLuong`, `thanhTien`, `MaTK`) VALUES (
+                    $data,'$hinhanh','$tensp',$dongia,$soluong,$thanhtien,$matk)");
+            }
         } else {
             $result = mysqli_fetch_array(mysqli_query($this->con, "SELECT * FROM sanpham WHERE masp = '$data'"));
             // echo "<pre>";
@@ -62,6 +79,16 @@ class CartModel extends DB
                 $_SESSION['cart'][$data] = [$productInfo];
             }
             // die();
+        }
+    }
+
+    public function deleteCartItem($data)
+    {
+        if (isset($_SESSION['user'])) {
+            $matk = $_SESSION['user'];
+            mysqli_query($this->con, "DELETE FROM `giohang` WHERE masp = $data AND MaTK = $matk");
+        } else {
+            unset($_SESSION['cart'][$data]);
         }
     }
 
