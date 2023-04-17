@@ -80,6 +80,7 @@
                       </td>
                     </tr>
                   <?php
+                  $total += $item[0][4] * $item[0][3];
                   }
                 } else if (isset($_SESSION['user'])) {
                   $total = 0;
