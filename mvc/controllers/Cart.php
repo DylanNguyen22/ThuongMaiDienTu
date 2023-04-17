@@ -8,6 +8,13 @@ class Cart extends Controller
         if (!isset($_SESSION['cart'])){
             $_SESSION['cart'] = [];
         }
+
+        if (isset($_SESSION['cart']) && !isset($_SESSION['user'])) {
+            foreach ($_SESSION['cart'] as $item) {
+                $total += $item[0][3] * $item[0][4];
+            }
+            $this->view("cart", $total);
+        }
         if (isset($_SESSION['user'])) {
             if (isset($_SESSION['cart']) && ($_SESSION['cart']) != null) {
                 $cart = $this->model("CartModel");
@@ -76,9 +83,8 @@ class Cart extends Controller
             window.location.href = "../cart/showcart";
         </script>
         <?php
+
     }
-
-
-
-}
+ 
+    }
 ?>

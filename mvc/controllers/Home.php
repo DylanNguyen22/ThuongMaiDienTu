@@ -32,5 +32,15 @@ class Home extends Controller{
         // $this->view("product_detail", $data);
         $this->view("product_detail", $productInfo);
     }
-}
+
+    function SearchProduct() {
+        $arrUrl = explode('/', $_GET['url']);
+        $arrLen = count($arrUrl);
+        $keyWord = $arrUrl[$arrLen-1];
+
+        $productModel = $this->model("ProductModel");
+        $product = $productModel->getAllProduct();
+        $data = [
+            $product
+        ];}}
 ?>

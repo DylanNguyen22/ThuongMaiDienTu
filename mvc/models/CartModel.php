@@ -13,6 +13,9 @@ class CartModel extends DB
             $thanhtien = $item[0][5];
             $matk = $_SESSION['user'];
             mysqli_query($this->con, "INSERT INTO `giohang`(`MaSP`, `hinhanh`, `TenSP`, `DonGia`, `SoLuong`, `thanhTien`, `MaTK`) VALUES ($masp,'$hinhanh','$tensp',$dongia,$soluong,$thanhtien,$matk)");
+            // echo "<pre>";
+            // print_r($_SESSION['cart']);
+            // die();
         }
         unset($_SESSION['cart']);
     }
@@ -78,6 +81,64 @@ class CartModel extends DB
             } else {
                 $_SESSION['cart'][$data] = [$productInfo];
             }
+            // echo "<pre>";
+            // print_r($data);
+            // die();
+        }
+    }
+
+    public function updateCart($data)
+    {
+        if (isset($_SESSION["cart"])) {
+            $productInfo = mysqli_fetch_array(mysqli_query($this->con, "SELECT * FROM sanpham WHERE masp = $data"));
+
+            $hinhanh = $productInfo[4];
+            $tensp = $productInfo[1];
+            $dongia = $productInfo[2];
+            $soluong = "1";
+            $thanhtien = $dongia;
+
+            $check = mysqli_fetch_array(mysqli_query($this->con, "SELECT * FROM giohang WHERE masp = $data"));
+            $soluongmoi = $check[5] + 1;
+            if ($check) {
+                mysqli_query($this->con, "UPDATE `giohang` SET `SoLuong`='$soluongmoi'WHERE masp = $data");
+            } else {
+                mysqli_query($this->con, "INSERT INTO `giohang`(`MaSP`, `hinhanh`, `TenSP`, `DonGia`, `SoLuong`, `thanhTien`) VALUES (
+                    $data,'$hinhanh','$tensp',$dongia,$soluong,$thanhtien)");
+            }
+        } else {
+            $result = mysqli_fetch_array(mysqli_query($this->con, "SELECT * FROM sanpham WHERE masp = '$data'"));
+            // echo "<pre>";
+            // print_r($_SESSION['cart']);
+            $productInfo = [
+                $result[0], //masp
+                $result[4], //hinh anh san pham
+                $result[1], // ten san pham
+                $result[2],
+                // gia san pham
+                "1", //so luong = 1
+                $result[2] // thanh tien
+            ];
+
+            if (isset($_SESSION['cart'][$data])) {
+                $productInfo = [
+                    $result[0], //masp
+                    $result[4], //hinh anh san pham
+                    $result[1], // ten san pham
+                    $result[2], // gia san pham
+                    $_SESSION['cart'][$data][0][4] + 1, //so luong + 1
+                    $result[2] * $_SESSION['cart'][$data][0][4] // thanh tien
+                ];
+
+                echo "<pre>";
+                print_r($result[2] * $_SESSION['cart'][$data][0][4]);
+                $_SESSION['cart'][$data] = [$productInfo];
+
+            } else {
+                $_SESSION['cart'][$data] = [$productInfo];
+            }
+            // echo "<pre>";
+            // print_r($data);
             // die();
         }
     }
@@ -91,6 +152,7 @@ class CartModel extends DB
             unset($_SESSION['cart'][$data]);
         }
     }
+
 
 
 }

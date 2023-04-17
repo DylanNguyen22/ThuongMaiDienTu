@@ -1,7 +1,4 @@
 <?php
-echo $_POST['soluong'];
-die();
-
 session_start();
 if (isset($_POST['idP'])){
     $_SESSION['idP'] = $_POST['idP'];
@@ -25,8 +22,12 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 require_once("./config.php");
 
 $vnp_TxnRef = rand(1,10000); //Mã giao dịch thanh toán tham chiếu của merchant
-if(isset($_POST['total'])){}
-$vnp_Amount = $_POST['total']; // Số tiền thanh toán
+if(isset($_POST['total']) && !isset($_POST['soluong']) && !isset($_POST['dongia'])){
+    $vnp_Amount = $_POST['total']; // Số tiền thanh toán
+}
+elseif(isset($_POST['soluong']) && isset($_POST['dongia'])){
+    $vnp_Amount = $_POST['soluong'] * $_POST['dongia'];
+}
 $vnp_Locale = 'vn'; //Ngôn ngữ chuyển hướng thanh toán
 $vnp_BankCode = 'VNBANK'; //Mã phương thức thanh toán
 $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán

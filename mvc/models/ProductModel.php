@@ -30,6 +30,20 @@ class ProductModel extends DB
         return mysqli_query($this->con, $qr);
     }
 
+    function getProductById($data)
+    {
+        $qr = "SELECT *FROM sanpham WHERE masp = $data";
+        return mysqli_fetch_all(mysqli_query($this->con, $qr));
+    }
+
+    function getProductById($data)
+    {
+        $qr = "SELECT *FROM sanpham WHERE masp = $data";
+        return mysqli_fetch_all(mysqli_query($this->con, $qr));
+    }
+
+
+
     public function getProductDetail($productId)
     {
         $qr = "SELECT * FROM sanpham, danhmucsanpham, thuonghieu WHERE masp = $productId and sanpham.maloai = danhmucsanpham.Maloai and sanpham.math = thuonghieu.MaTH";

@@ -34,10 +34,17 @@
                     <img src="./public/website_imgs/logo.png" alt="">
                 </div>
                 <div class="search_block w-50 d-flex input-group">
-                    <input type="text" class="form-control" placeholder="Recipient's username"
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-primary" type="button" id="button-addon2"><ion-icon
-                            name="search-outline"></ion-icon></button>
+                    <form method="post" action="Home/SearchProduct">
+                    <input type="text" class="form-control" name="keyword" placeholder="Recipient's username"
+                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button name="sbm" class="btn btn-primary" type="submit" id="button-addon2"><ion-icon
+                    name=""></ion-icon></button>
+                </form>
+
+                <!-- <form action="home/search" method="post" class="form-inline my-2 my-lg-0">
+                <input name="keyWord" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button name="sbm" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form> -->
                 </div>
                 <div class="cart">
                     <a class="cart_link" href="cart/showcart"><ion-icon name="cart-outline"></ion-icon> Giỏ hàng của bạn</a>
