@@ -8,13 +8,6 @@ class Cart extends Controller
         if (!isset($_SESSION['cart'])){
             $_SESSION['cart'] = [];
         }
-
-        if (isset($_SESSION['cart']) && !isset($_SESSION['user'])) {
-            foreach ($_SESSION['cart'] as $item) {
-                $total += $item[0][5] * $item[0][4];
-            }
-            $this->view("cart", $total);
-        }
         if (isset($_SESSION['user'])) {
             if (isset($_SESSION['cart']) && ($_SESSION['cart']) != null) {
                 $cart = $this->model("CartModel");
@@ -24,6 +17,12 @@ class Cart extends Controller
             $cart = $this->model("CartModel");
                 $result = $cart->getCart();
                 $this->view("cart", $result);
+        }
+        elseif (isset($_SESSION['cart']) && !isset($_SESSION['user'])) {
+            foreach ($_SESSION['cart'] as $item) {
+                $total += $item[0][5] * $item[0][4];
+            }
+            $this->view("cart", $total);
         }
         
     }

@@ -1,4 +1,7 @@
 <?php
+echo $_POST['soluong'];
+die();
+
 session_start();
 if (isset($_POST['idP'])){
     $_SESSION['idP'] = $_POST['idP'];

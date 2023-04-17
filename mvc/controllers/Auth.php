@@ -14,6 +14,7 @@ class Auth extends Controller
 
         $auth = $this->model("AuthModel");
         $result = $auth->handleSignIn($email);
+        
 
         if($result[0] == 'yes'){
             $pass = md5($_POST['pass']);
@@ -21,8 +22,13 @@ class Auth extends Controller
 
             if($pass == $result[1]['matkhau']){
                 $_SESSION['user'] = $result[1]['matk'];
-                var_dump($_SESSION);
-                header('location: ../');
+                if($result[1][8] == 1){
+                    header('location: ../admin/mainpage');
+                }
+                elseif($result[1][8] == 2){
+                    header('location: ../');
+                }
+                
             }else{
                 echo "sai mk";
             }
@@ -71,7 +77,7 @@ class Auth extends Controller
                         $auth = $this->model("AuthModel");
                         $result = $auth->handleSignUp($data);
                         if($result == "success"){
-                            echo $result;
+                            header('location: ../auth/sign_in');
                         }else{
                             echo $result;
                         }

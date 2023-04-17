@@ -101,13 +101,6 @@
                             <li> Số lượng:
                                 <?php echo $data["soluong"] ?>
                             </li>
-                            <li> Tình trạng:
-                                <?php if ($data["trangthaisp"] == 1) {
-                                    echo "Mới";
-                                } else {
-                                    echo "Cũ";
-                                } ?>
-                            </li>
                         </ul>
                     </div>
                     <div class="d-flex align-items-center justify-content-between w-50">
