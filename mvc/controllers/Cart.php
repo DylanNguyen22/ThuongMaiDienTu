@@ -85,32 +85,5 @@ class Cart extends Controller
 
     }
  
-        public function up($data){
-        $product ['qty'] = 1;
-
-        $arrUrl = explode('/', $_GET['url']);
-        $arrLen = count($arrUrl);
-        $ProductModel = $arrUrl[$arrLen - 1];
-        $ProductModel = $this->model("ProductModel");
-        $product = $ProductModel->getProductById($data);
-        $product['qty'] = $_SESSION['cart'][$data][0][4] + 1;
-        $_SESSION['cart'][$data]= $product;
-        echo "<pre>";
-        print_r($product);
-        die();
-        ?>
-        <script>alert("update thành công")
-            window.location.href = "../showcart";
-        </script>
-        <?php
     }
-
-
-    
-
-    
-
-
-    
-}
 ?>
