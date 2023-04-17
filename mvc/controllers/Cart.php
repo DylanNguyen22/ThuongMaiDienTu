@@ -5,6 +5,10 @@ class Cart extends Controller
     {
         $total = 0;
 
+        if (!isset($_SESSION['cart'])){
+            $_SESSION['cart'] = [];
+        }
+
         if (isset($_SESSION['cart']) && !isset($_SESSION['user'])) {
             foreach ($_SESSION['cart'] as $item) {
                 $total += $item[0][3] * $item[0][4];
@@ -12,16 +16,21 @@ class Cart extends Controller
             $this->view("cart", $total);
         }
         if (isset($_SESSION['user'])) {
-            if (isset($_SESSION['cart']) && $_SESSION['cart'] != null) {
+            if (isset($_SESSION['cart']) && ($_SESSION['cart']) != null) {
                 $cart = $this->model("CartModel");
                 $result = $cart->showCart();
                 // unset($_SESSION['cart']);
- 
             }
+            $cart = $this->model("CartModel");
+                $result = $cart->getCart();
+                $this->view("cart", $result);
         }
-        $cart = $this->model("CartModel");
-        $result = $cart->getCart();
-        $this->view("cart", $result);
+
+        // echo "<pre>";
+        // print_r($item[0][3]);
+        // print_r($item[0][4]);
+        // die();
+        
     }
 
     function addToCart()
@@ -48,7 +57,8 @@ class Cart extends Controller
         $arrLen = count($arrUrl);
         $productId = $arrUrl[$arrLen - 1];
 
-        unset($_SESSION['cart'][$productId]);
+        $cart = $this->model("CartModel");
+        $cart->deleteCartItem($productId);
         ?>
         <script>history.back()</script>
         <?php
@@ -72,6 +82,35 @@ class Cart extends Controller
             window.location.href = "../cart/showcart";
         </script>
         <?php
+
     }
+ 
+        public function up($data){
+        $product ['qty'] = 1;
+
+        $arrUrl = explode('/', $_GET['url']);
+        $arrLen = count($arrUrl);
+        $ProductModel = $arrUrl[$arrLen - 1];
+        $ProductModel = $this->model("ProductModel");
+        $product = $ProductModel->getProductById($data);
+        $product['qty'] = $_SESSION['cart'][$data][0][4] + 1;
+        $_SESSION['cart'][$data]= $product;
+        echo "<pre>";
+        print_r($product);
+        die();
+        ?>
+        <script>alert("update thành công")
+            window.location.href = "../showcart";
+        </script>
+        <?php
+    }
+
+
+    
+
+    
+
+
+    
 }
 ?>

@@ -34,7 +34,7 @@
                     <img src="./public/website_imgs/logo.png" alt="">
                 </div>
                 <div class="search_block w-50 d-flex input-group">
-                    <form action="../search.php">
+                    <form method="post" action="Home/SearchProduct">
                     <input type="text" class="form-control" name="keyword" placeholder="Recipient's username"
                     aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button name="sbm" class="btn btn-primary" type="submit" id="button-addon2"><ion-icon
