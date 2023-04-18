@@ -28,6 +28,7 @@ if(isset($_POST['total']) && !isset($_POST['soluong']) && !isset($_POST['dongia'
 elseif(isset($_POST['soluong']) && isset($_POST['dongia'])){
     $vnp_Amount = $_POST['soluong'] * $_POST['dongia'];
 }
+
 $vnp_Locale = 'vn'; //Ngôn ngữ chuyển hướng thanh toán
 $vnp_BankCode = 'VNBANK'; //Mã phương thức thanh toán
 $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán

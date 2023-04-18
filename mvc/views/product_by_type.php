@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/homepage.css">
+    <link rel="stylesheet" href="../../public/css/homepage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <?php require("./public/header_link.php") ?>
@@ -25,19 +25,17 @@
                     <?php echo $typeOfProduct['Tenloai'] ?>
                 </a>
             <?php
+
             }
             ?>
-
         </div>
-
-
         <div class="header_functions p-3">
             <div class="d-flex mx-4 align-items-center justify-content-around">
                 <div class="logo">
-                    <a href="/thuongmaidientu"> <img src="./public/website_imgs/logo.png" alt=""> </a> 
+                    <a href="/thuongmaidientu"> <img src="../../public/website_imgs/logo.png" alt=""> </a>
                 </div>
                 <div class="w-50">
-                    <form action="./home/search" method="post">
+                    <form action="../../home/search" method="post">
                         <div class="input-group ">
                             <input class="form-control" placeholder="Nhập từ khóa tìm kiếm ?" name="key_word" type="text">
                             <button class="btn btn-primary" type="submit">Tìm</button>
@@ -45,7 +43,7 @@
                     </form>
                 </div>
                 <div class="cart">
-                    <a class="cart_link" href="cart/showcart"><ion-icon name="cart-outline"></ion-icon> Giỏ hàng của bạn</a>
+                    <a class="cart_link" href="../../cart/showcart"><ion-icon name="cart-outline"></ion-icon> Giỏ hàng của bạn</a>
                 </div>
                 <?php
                 if (isset($_SESSION['user'])) {
@@ -59,16 +57,16 @@
                                     <?php echo $data[2][3] . " " . $data[2][4] ?>
                                 </a></li>
                             <li><a class="dropdown-item" href="#">Quản lí đơn hàng</a></li>
-                            <li><a class="dropdown-item text-danger" href="./auth/sign_out">Đăng xuất</a></li>
+                            <li><a class="dropdown-item text-danger" href="../auth/sign_out">Đăng xuất</a></li>
                         </ul>
                     </div>
                 <?php
                 } else {
                 ?>
                     <div class="user d-flex">
-                        <a class="sign_in" href="./auth/sign_in">Đăng nhập</a>
+                        <a class="sign_in" href="../../auth/sign_in">Đăng nhập</a>
                         <span>/</span>
-                        <a class="sign_up" href="./auth/sign_up">Đăng ký</a>
+                        <a class="sign_up" href="../../auth/sign_up">Đăng ký</a>
                     </div>
                 <?php
                 }
@@ -79,12 +77,13 @@
             <div class="products d-flex">
                 <?php
                 while ($productData = mysqli_fetch_array($data[0])) {
+                    // echo "<pre>";
+                    // print_r($productData);
                 ?>
-
                     <a href="/thuongmaidientu/home/productdetail/<?php echo $productData['masp'] ?>" class="product_link m-2">
                         <div class="product p-2">
                             <div class="product_img">
-                                <img class="w-100 h-auto" src="./public/product_imgs/<?php echo $productData["hinhanh"] ?>" alt="">
+                                <img class="w-100 h-auto" src="../../public/product_imgs/<?php echo $productData["hinhanh"] ?>" alt="">
                             </div>
                             <div class="product_brand">
                                 <span>

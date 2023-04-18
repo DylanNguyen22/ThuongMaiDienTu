@@ -48,23 +48,23 @@
                 if (isset($_SESSION['cart']) && !isset($_SESSION['user'])) {
                   $total = 0;
                   foreach ($_SESSION['cart'] as $item) {
-                  ?>
+                ?>
                     <tr>
-                      <th scope="row"><img src="../public/product_imgs/<?php echo $item[0][1] ?>"
-                          alt=""></th>
+                      <th scope="row"><img src="../public/product_imgs/<?php echo $item[0][1] ?>" alt=""></th>
                       <td>
                         <?php echo $item[0][2] ?>
                       </td>
-                        <form method="post" action="../vnpay_php/vnpay_create_payment.php">
                       <td>
-                           
-                          <?php echo $item[0][3] ?>đ<input type="hidden" name="dongia" value="<?php echo $item[0][3] ?>">
+
+                        <?php echo $item[0][3] ?>đ<input type="hidden" name="dongia" value="<?php echo $item[0][3] ?>">
                       </td>
 
                       <td>
-                        <div  class="px-2 btn btn-primary" id="increase" onclick="var quantity = document.getElementById('<?php echo 'quantity'.$item[0][0] ?>').value;document.getElementById('<?php echo 'quantity'.$item[0][0] ?>').value = ++quantity; ">+</div>
-                        <input name="soluong" style="width: 45px" id="<?php echo 'quantity'.$item[0][0] ?>" value="<?php echo $item[0][4] ?>" type="number" min="1" >
-                        <div class="px-2 btn btn-primary" id="decrease" onclick="var quantity = document.getElementById('<?php echo 'quantity'.$item[0][0] ?>').value; if(quantity>=2) { document.getElementById('<?php echo 'quantity'.$item[0][0] ?>').value = --quantity;}">-</div>
+                        <div class="d-flex">
+                          <a href="../cart/update_cart_item_quantity/increase/<?php echo $item[0][4] ?>/<?php echo $item[0][0] ?>" class="btn btn-primary">+</a>
+                          <div class="btn bg-0"><?php echo $item[0][4] ?></div>
+                          <a href="../cart/update_cart_item_quantity/decrease/<?php echo $item[0][4] ?>/<?php echo $item[0][0] ?>" class="btn btn-primary">-</a>
+                        </div>
                       </td>
                       <td>
                         <?php echo $item[0][4] * $item[0][3] ?> đ
@@ -72,15 +72,15 @@
                       <td><a href="../cart/deleteCartItem/<?php echo $item[0][0] ?>" class="btn btn-sm btn-danger">Xóa</a>
                       </td>
                       <td>
-                        <form method="post" action="../vnpay_php/vnpay_create_payment.php">
+                         <form method="post" action="../vnpay_php/vnpay_create_payment.php">
                           <input type="hidden" name="idP" id="" value="<?php echo $item[0][0] ?>">
                           <input type="hidden" name="total" id="" value="<?php echo $item[0][4] * $item[0][3] ?>">
                           <button type="submit" class="btn btn-sm btn-primary">Đặt hàng</button>
-                      </form>
+                        </form>
                       </td>
                     </tr>
                   <?php
-                  $total += $item[0][4] * $item[0][3];
+                    $total += $item[0][4] * $item[0][3];
                   }
                 } else if (isset($_SESSION['user'])) {
                   $total = 0;
@@ -95,7 +95,11 @@
                         <?php echo $result[4] ?> đ
                       </td>
                       <td>
-                        <input style="width: 45px" value="<?php echo $result[5] ?>" type="number">
+                        <div class="d-flex">
+                          <a href="../cart/update_cart_item_quantity/increase/<?php echo $result[5] ?>/<?php echo $result[1] ?>" class="btn btn-primary">+</a>
+                          <div class="btn bg-0"><?php echo $result[5] ?></div>
+                          <a href="../cart/update_cart_item_quantity/decrease/<?php echo $result[5] ?>/<?php echo $result[1] ?>" class="btn btn-primary">-</a>
+                        </div>
                       </td>
                       <td>
                         <?php echo $result[4] * $result[5] ?> đ
@@ -129,11 +133,11 @@
             <h5 class="card-title">Tổng tiền</h5>
             <p class="card-text">Tổng tiền:
               <?php
-              echo $total." đ";
+              echo $total . " đ";
               ?>
             <form method="post" action="../vnpay_php/vnpay_create_payment.php">
               <input type="hidden" name="payAll">
-              <input type="hidden" name="total" id="" value="<?php echo $data ?>">
+              <input type="hidden" name="total" id="" value="<?php echo $total ?>">
               <button class="btn btn-primary">Thanh toán</button>
             </form>
           </div>

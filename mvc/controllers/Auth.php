@@ -23,9 +23,12 @@ class Auth extends Controller
             if($pass == $result[1]['matkhau']){
                 $_SESSION['user'] = $result[1]['matk'];
                 if($result[1][8] == 1){
+                    $_SESSION['role'] = 'admin';
                     header('location: ../admin/mainpage');
                 }
                 elseif($result[1][8] == 2){
+                    
+                    $_SESSION['role'] = 'client';
                     header('location: ../');
                 }
                 
@@ -101,7 +104,7 @@ class Auth extends Controller
 
     public function sign_out() {
         unset($_SESSION['user']);
+        unset($_SESSION['role']);
         header('Location: /thuongmaidientu');
     }
 }
-?>

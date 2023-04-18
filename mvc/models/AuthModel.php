@@ -4,7 +4,7 @@ class AuthModel extends DB
 
     public function handleSignUp($data)
     {
-        mysqli_query($this->con, "INSERT INTO taikhoan(tentk, matkhau, ho, ten, sodt, gioitinh, diachi, loaitaikhoan) VALUES ('$data[0]', '$data[1]', '$data[2]', '$data[3]', '0123456789', 'Nam', 'An Biên, Kiên Giang', '1')");
+        mysqli_query($this->con, "INSERT INTO taikhoan(tentk, matkhau, ho, ten, sodt, gioitinh, diachi, loaitaikhoan) VALUES ('$data[0]', '$data[1]', '$data[2]', '$data[3]', '0123456789', 'Nam', 'An Biên, Kiên Giang', '2')");
         if (mysqli_affected_rows($this->con)) {
             return 'success';
         } else {

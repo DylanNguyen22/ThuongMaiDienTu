@@ -104,7 +104,11 @@
                         </ul>
                     </div>
                     <div class="d-flex align-items-center justify-content-between w-50">
-                        <a href="" class="btn btn-danger">Mua ngay</a>
+                        <!-- <a href="" class="btn btn-danger">Mua ngay</a> -->
+                        <form method="post" action="../../vnpay_php/vnpay_create_payment.php">
+                          <input type="hidden" name="total" id="" value="<?php echo $data["giaban"]?>">
+                          <button type="submit" class="btn btn-danger">Mua ngay</button>
+                        </form>
                         <a href="../../cart/addtocart/<?php echo $data['masp'] ?>" class="btn btn-success">Thêm vào giỏ hàng</a>
                     </div>
                 </div>

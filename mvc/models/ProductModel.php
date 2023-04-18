@@ -30,20 +30,13 @@ class ProductModel extends DB
         return mysqli_query($this->con, $qr);
     }
 
-    function getProductById($data)
-    {
-        $qr = "SELECT *FROM sanpham WHERE masp = $data";
-        return mysqli_fetch_all(mysqli_query($this->con, $qr));
-    }
-
-
-
     public function getProductDetail($productId)
     {
         $qr = "SELECT * FROM sanpham, danhmucsanpham, thuonghieu WHERE masp = $productId and sanpham.maloai = danhmucsanpham.Maloai and sanpham.math = thuonghieu.MaTH";
         // return mysqli_query($this->con, $qr);
         return (mysqli_fetch_array(mysqli_query($this->con, $qr)));
     }
+
 
     public function hideProduct($data)
     {
@@ -149,6 +142,15 @@ class ProductModel extends DB
         $keyword = $_POST['key_word'];
         
         return mysqli_query($this->con, "SELECT * FROM sanpham, danhmucsanpham, thuonghieu WHERE danhmucsanpham.maloai = sanpham.maloai AND thuonghieu.MaTH = sanpham.math AND MATCH(tensp) AGAINST('$keyword')");
+    }
+
+
+    //test k
+    public function getByTypeProduct($typeID)
+    {
+        $qr = "SELECT * FROM sanpham, danhmucsanpham, thuonghieu WHERE sanpham.maloai = $typeID and sanpham.maloai = danhmucsanpham.Maloai and sanpham.math = thuonghieu.MaTH";
+        return mysqli_query($this->con, $qr);
+        // return (mysqli_fetch_array(mysqli_query($this->con, $qr)));
     }
 }
 ?>

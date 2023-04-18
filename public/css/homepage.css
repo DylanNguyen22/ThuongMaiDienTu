@@ -39,6 +39,7 @@ body {
 .search_block {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .cart_link {

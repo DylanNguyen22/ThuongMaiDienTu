@@ -1,6 +1,7 @@
 <?php
-$typeList = [];
-$brandList = [];
+ if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'){
+    $typeList = [];
+    $brandList = [];
 
 // $brand = mysqli_fetch_array($data[2]);
 while ($type = mysqli_fetch_array($data[1])) {
@@ -45,10 +46,13 @@ while ($brand = mysqli_fetch_array($data[2])) {
 <body>
     <div class="header">
         <span class="ms-2">Xin chào: admin</span>
-        <div class="menu mb-2 mt-2 py-2">
+        <div class="menu mb-2 mt-2 py-2 d-flex justify-content-between">
+            <div class="ms-3">
             <button onclick="open_container1()" class="rounded-pill btn-danger mx-2 ">Quản lý tài khoản</button>
             <button onclick="open_container2()" class="rounded-pill btn-success mx-2 ">Quản lý đơn hàng</button>
             <button onclick="open_container3()" class="rounded-pill btn-primary mx-2 ">Quản lý sản phẩm</button>
+            </div>
+            <a class="me-3 text-danger btn bg-0 border-0 fw-bolder" href="../auth/sign_out">Đăng xuất</a> 
         </div>
         <div id="container1" class="container1">
 
@@ -210,3 +214,7 @@ while ($brand = mysqli_fetch_array($data[2])) {
 </script>
 
 </html>
+<?php
+ }else{
+    header('location: /thuongmaidientu');
+ }
