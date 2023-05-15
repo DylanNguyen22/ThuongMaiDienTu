@@ -17,7 +17,7 @@
             margin: auto;
         }
 
-        img{
+        img {
             width: 90%;
         }
 
@@ -105,11 +105,22 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between w-50">
                         <!-- <a href="" class="btn btn-danger">Mua ngay</a> -->
-                        <form method="post" action="../../vnpay_php/vnpay_create_payment.php">
-                          <input type="hidden" name="total" id="" value="<?php echo $data["giaban"]?>">
-                          <button type="submit" class="btn btn-danger">Mua ngay</button>
-                        </form>
-                        <a href="../../cart/addtocart/<?php echo $data['masp'] ?>" class="btn btn-success">Thêm vào giỏ hàng</a>
+                        <?php
+                        if (isset($_SESSION['user'])) {
+                            ?>
+                            <form method="post" action="../../vnpay_php/vnpay_create_payment.php">
+                                <input type="hidden" name="total" id="" value="<?php echo $data["giaban"] ?>">
+                                <button type="submit" class="btn btn-danger">Mua ngay</button>
+                            </form>
+                            <?php
+                        }else{
+                            ?>
+                                <a class="btn btn-danger" href="../../Auth/sign_in">Mua ngay</a>
+                            <?php
+                        }
+                        ?>
+                        <a href="../../cart/addtocart/<?php echo $data['masp'] ?>" class="btn btn-success">Thêm vào giỏ
+                            hàng</a>
                     </div>
                 </div>
             </div>

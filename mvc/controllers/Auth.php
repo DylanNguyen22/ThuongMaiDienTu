@@ -24,7 +24,7 @@ class Auth extends Controller
                 $_SESSION['user'] = $result[1]['matk'];
                 if($result[1][8] == 1){
                     $_SESSION['role'] = 'admin';
-                    header('location: ../admin/mainpage');
+                    header('location: ../dmin/mainpage');
                 }
                 elseif($result[1][8] == 2){
                     

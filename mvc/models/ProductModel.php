@@ -140,7 +140,6 @@ class ProductModel extends DB
     }
     public function searchProduct() {
         $keyword = $_POST['key_word'];
-        
         return mysqli_query($this->con, "SELECT * FROM sanpham, danhmucsanpham, thuonghieu WHERE danhmucsanpham.maloai = sanpham.maloai AND thuonghieu.MaTH = sanpham.math AND MATCH(tensp) AGAINST('$keyword')");
     }
 
@@ -151,6 +150,58 @@ class ProductModel extends DB
         $qr = "SELECT * FROM sanpham, danhmucsanpham, thuonghieu WHERE sanpham.maloai = $typeID and sanpham.maloai = danhmucsanpham.Maloai and sanpham.math = thuonghieu.MaTH";
         return mysqli_query($this->con, $qr);
         // return (mysqli_fetch_array(mysqli_query($this->con, $qr)));
+    }
+
+    public function editProductType(){
+        $tendm = $_POST['tendm'];
+        $noibat = $_POST['noibat'];
+        $madm = $_POST['madm'];
+        mysqli_query($this->con, "UPDATE `danhmucsanpham` SET `Tenloai`='$tendm',`dmnoibat`='$noibat' WHERE Maloai = $madm");
+    }
+
+    public function searchProductType(){
+        $keyword1 = $_POST['keyword'];
+        if($keyword1 == 'Nổi bật' || $keyword1 == 'nổi bật' || $keyword1 == 'Noi bat' || $keyword1 == 'noi bat'){
+            $keyword2 = 1;
+        }
+        elseif($keyword1 == 'Không nổi bật' || $keyword1 == 'không nổi bật' || $keyword1 == 'Khong noi bat' || $keyword1 == 'khong noi bat'){
+            $keyword2 = 0;
+        }else{
+            $keyword2 = 3;
+        }
+        return mysqli_query($this->con,"SELECT * FROM `danhmucsanpham` WHERE Tenloai = '$keyword1' UNION SELECT * FROM danhmucsanpham WHERE dmnoibat = $keyword2");
+    }
+
+    public function addProductType(){
+        var_dump($_POST);
+        $tendm = $_POST['tendm'];
+        $noibat = $_POST['noibat'];
+        mysqli_query($this->con, "INSERT INTO `danhmucsanpham`(`Tenloai`, `dmnoibat`) VALUES ('$tendm','$noibat')");
+    }
+
+    public function deleteProductType($id){
+        mysqli_query($this->con, "DELETE FROM `danhmucsanpham` WHERE Maloai = $id");
+    }
+
+    public function editBrand(){
+        $tenth = $_POST['tenth'];
+        $math = $_POST['math'];
+        mysqli_query($this->con, "UPDATE `thuonghieu` SET `TenTH`='$tenth' WHERE MaTH = $math");
+    }
+
+    public function deleteBrand($id){
+        mysqli_query($this->con, "DELETE FROM `thuonghieu` WHERE MaTH = $id");
+    }
+
+    public function addBrand(){
+        var_dump($_POST);
+        $tenth = $_POST['tenth'];
+        mysqli_query($this->con, "INSERT INTO `thuonghieu`(`TenTH`) VALUES ('$tenth')");
+    }
+
+    public function searchBrand(){
+        $keyword = $_POST['keyword'];
+        return  mysqli_query($this->con, "SELECT * FROM thuonghieu WHERE TenTH = '$keyword'"); 
     }
 }
 ?>

@@ -82,17 +82,15 @@
                     <label>
                         <?php
                         if ($secureHash == $vnp_SecureHash) {
-                            if ($_GET['vnp_ResponseCode'] == '00') {
+                            if ($_GET['vnp_ResponseCode'] == 00) {
                                 echo "<span style='color:blue'>GD Thanh cong</span>";
                                 if (isset($_SESSION['idP'])){
-                                    header("location: '../../../cart/dropItemPaid");
+                                    header("location: '../../../Cart/dropItemPaid");
                                 }
-                                if (isset($_SESSION['payAll'])){
-                                    header("location: '../../../cart/dropAllItemPaid");
+                                elseif (isset($_SESSION['payAll'])){
+                                    header("location: '../../../Cart/dropAllItemPaid");
                             } 
-                            else {
-                                echo "<span style='color:red'>GD Khong thanh cong</span>";
-                            }}
+                        }
                         } else {
                             echo "<span style='color:red'>Chu ky khong hop le</span>";
                         }
